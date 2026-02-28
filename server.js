@@ -1,19 +1,14 @@
-const express = require("express");
-const cors = require("cors");
+// server.js
+const jsonServer = require("json-server");
+const server = jsonServer.create();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
 
-const app = express();
+const PORT = process.env.PORT || 10000;
 
-// middleware
-app.use(cors());
-app.use(express.json());
+server.use(middlewares);
+server.use(router);
 
-// test route
-app.get("/", (req, res) => {
-  res.send("Backend API Running 🚀");
-});
-
-const PORT = 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`JSON Server is running on port ${PORT}`);
 });
